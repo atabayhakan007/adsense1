@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinCalc Pro | Smart Financial & FIRE Calculation Tools</title>
+    <meta name="description" content="Plan your financial future. Advanced calculators for FIRE (Financial Independence, Retire Early), rent vs. buy mortgage cost, freelance hourly rate, and inflation erosion.">
+    <meta name="keywords" content="FIRE calculator, financial independence retire early, rent vs buy, mortgage payment calculator, freelance hourly rate, inflation calculator, compound interest">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://fincalc.net/">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="FinCalc Pro | Smart Financial & FIRE Calculation Tools">
+    <meta property="og:description" content="Plan your financial future. Advanced calculators for FIRE (Financial Independence, Retire Early), rent vs. buy mortgage cost, freelance hourly rate, and inflation erosion.">
+    <meta property="og:image" content="https://fincalc.net/assets/preview.png">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="FinCalc Pro | Smart Financial & FIRE Calculation Tools">
+    <meta property="twitter:description" content="Plan your financial future. Advanced calculators for FIRE (Financial Independence, Retire Early), rent vs. buy mortgage cost, freelance hourly rate, and inflation erosion.">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="index.css">
+    
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- JSON-LD Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "FinCalc Pro",
+      "url": "https://fincalc.net/",
+      "description": "FIRE (Financial Independence, Retire Early), rent vs. buy mortgage cost, freelance hourly rate, and inflation erosion calculators.",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires JavaScript. Requires HTML5."
+    }
+    </script>
+</head>
+<body>
+
+    <div class="app-container">
+        
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div>
+                <div class="logo-container">
+                    <div class="logo-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2V22M17 5H9.5C8.67157 5 8 5.67157 8 6.5C8 7.32843 8.67157 8 9.5 8H14.5C15.3284 8 16 8.67157 16 9.5C16 10.3284 15.3284 11 14.5 11H8M16 13H9.5C8.67157 13 8 13.6716 8 14.5C8 15.3284 8.67157 16 9.5 16H14.5C15.3284 16 16 16.6716 16 17.5C16 18.3284 15.3284 19 14.5 19H7" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <span class="logo-text" data-i18n="logo_text">FinCalc Pro</span>
+                </div>
+                
+                <nav class="nav-menu">
+                    <a class="nav-item active" data-tab="fire-tab" id="nav-fire" data-i18n="nav_fire">
+                        🔥 FIRE Calculator
+                    </a>
+                    <a class="nav-item" data-tab="mortgage-tab" id="nav-mortgage" data-i18n="nav_mortgage">
+                        🏡 Buy vs. Rent
+                    </a>
+                    <a class="nav-item" data-tab="freelance-tab" id="nav-freelance" data-i18n="nav_freelance">
+                        💼 Freelance Hourly Rate
+                    </a>
+                    <a class="nav-item" data-tab="inflation-tab" id="nav-inflation" data-i18n="nav_inflation">
+                        💸 Inflation Erosion
+                    </a>
+                    <a class="nav-item" data-tab="admin-tab" id="nav-admin" data-i18n="nav_admin">
+                        ⚙️ Admin Dashboard
+                    </a>
+                </nav>
+            </div>
+            
+            <!-- Sidebar AdSense Space -->
+            <div class="adsense-placeholder adsense-sidebar">
+                <!-- AdSense Script Tag goes here in production -->
+            </div>
+            
+            <div class="sidebar-footer">
+                <div style="display: flex; gap: 0.75rem; margin-bottom: 0.5rem; flex-wrap: wrap;">
+                    <a href="#" id="link-about" data-i18n="link_about" style="color: var(--text-secondary); text-decoration: none; font-size: 0.8rem; transition: var(--transition-smooth);">About Us</a>
+                    <span style="color: var(--text-muted); font-size: 0.8rem;">|</span>
+                    <a href="#" id="link-privacy" data-i18n="link_privacy" style="color: var(--text-secondary); text-decoration: none; font-size: 0.8rem; transition: var(--transition-smooth);">Privacy Policy</a>
+                </div>
+                <p style="font-size: 0.7rem; color: var(--text-muted); line-height: 1.3; margin-bottom: 0.5rem;" data-i18n="disclaimer">Disclaimer: Calculations are for informational purposes only. We are affiliate partners with some recommended products.</p>
+                <p data-i18n="copyright">&copy; 2026 FinCalc Pro. All rights reserved.</p>
+            </div>
+        </aside>
+        
+        <!-- Main Content Grid -->
+        <main class="main-content">
+            
+            <!-- Header Banner Ad -->
+            <div class="adsense-placeholder adsense-top-banner">
+                <!-- AdSense Leaderboard Unit -->
+            </div>
+            
+            <!-- Dynamic Headers -->
+            <header class="header">
+                <div class="header-title">
+                    <h1 id="page-title">FIRE (Financial Independence, Retire Early) Calculator</h1>
+                    <p id="page-subtitle">Calculate when you will achieve financial freedom based on your current net worth and savings rate.</p>
+                </div>
+                <button class="btn-share" id="btn-share-link">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="18" cy="5" r="3"></circle>
+                        <circle cx="6" cy="12" r="3"></circle>
+                        <circle cx="18" cy="19" r="3"></circle>
+                        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                    </svg>
+                    <span data-i18n="btn_share">Share Plan</span>
+                </button>
+            </header>
+            
+            <!-- TAB 1: FIRE Calculator -->
+            <section id="fire-tab" class="tab-content active">
+                <div class="calculator-grid">
+                    <!-- Inputs Panel -->
+                    <div class="card input-panel">
+                        <h2 data-i18n="label_values" style="font-size: 1.25rem; font-weight:600; margin-bottom:-0.5rem;">Calculator Inputs</h2>
+                        
+                        <div class="form-group">
+                            <div class="form-label-row">
+                                <label class="form-label" for="fire-current-age" data-i18n="fire_current_age">Current Age</label>
+                                <span class="form-value-badge" id="val-fire-current-age">30</span>
+                            </div>
+                            <input type="range" id="fire-current-age" min="18" max="75" value="30">
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="form-label-row">
+                                <label class="form-label" for="fire-net-worth" data-i18n="fire_net_worth">Current Net Worth</label>
+                                <span class="form-value-badge" id="val-fire-net-worth">10000</span>
+                            </div>
+                            <input type="range" id="fire-net-worth" min="0" max="1000000" step="5000" value="10000">
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="form-label-row">
+                                <label class="form-label" for="fire-monthly-savings" data-i18n="fire_monthly_savings">Monthly Additions / Savings</label>
+                                <span class="form-value-badge" id="val-fire-monthly-savings">500</span>
+                            </div>
+                            <input type="range" id="fire-monthly-savings" min="0" max="20000" step="100" value="500">
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="form-label-row">
+                                <label class="form-label" for="fire-monthly-expenses" data-i18n="fire_monthly_expenses">Monthly Expenses Post-Retirement</label>
+                                <span class="form-value-badge" id="val-fire-monthly-expenses">1500</span>
+                            </div>
+                            <input type="range" id="fire-monthly-expenses" min="500" max="25000" step="100" value="1500">
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="form-label-row">
+                                <label class="form-label" for="fire-roi" data-i18n="fire_roi">Annual Investment Return (Nominal %)</label>
+                                <span class="form-value-badge" id="val-fire-roi">10%</span>
+                            </div>
+                            <input type="range" id="fire-roi" min="1" max="25" value="10">
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="form-label-row">
+                                <label class="form-label" for="fire-inflation" data-i18n="fire_inflation">Annual Average Inflation (%)</label>
+                                <span class="form-value-badge" id="val-fire-inflation">3%</span>
+                            </div>
+                            <input type="range" id="fire-inflation" min="0" max="20" value="3">
+                        </div>
+                    </div>
+                    
+                    <!-- Outputs Panel -->
+                    <div class="output-panel">
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <span class="metric-label" data-i18n="fire_metric_age">Financial Freedom Age</span>
+                                <span class="metric-value highlight-green" id="fire-age-result">--</span>
+                                <span class="metric-subtitle" id="fire-years-left">Calculating...</span>
+                            </div>
+                            <div class="metric-card">
+                                <span class="metric-label" data-i18n="fire_metric_target">Target Net Worth Needed</span>
+                                <span class="metric-value" id="fire-target-result">$450,000</span>
+                                <span class="metric-subtitle" data-i18n="fire_sub_target">Based on 4% rule (SWR)</span>
+                            </div>
+                            <div class="metric-card">
+                                <span class="metric-label" data-i18n="fire_metric_total">Total Wealth (At Retirement)</span>
+                                <span class="metric-value highlight-blue" id="fire-total-wealth">--</span>
+                                <span class="metric-subtitle" id="fire-real-value">Inflation-adjusted real value</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Visual Charts -->
+                        <div class="card">
+                            <div class="chart-container">
+                                <canvas id="fireChart"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Affiliate Promo Card -->
+                        <div id="promo-card-fire"></div>
+
+                        <!-- Newsletter Report Card -->
+                        <div id="newsletter-box-fire"></div>
+
+                        <!-- Embed Widget Option -->
+                        <div id="embed-box-fire"></div>
+                        
+                        <!-- Native Content Ad -->
+                        <div class="adsense-placeholder adsense-content-native">
+                            <!-- AdSense In-Article unit -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- TAB 2: Mortgage vs Rent Calculator -->
+            <section id="mortgage-tab" class="tab-content">
+                <div class="calculator-grid">
+                    <!-- Inputs Panel -->
+                    <div class="card input-panel">
+                        <h2 data-i18n="label_values" style="font-size: 1.25rem; font-weight:600; margin-bottom:-0.5rem;">Calculator Inputs</h2>
+                        
+                        <div class="form-group">
+                            <div class="form-label-row">
+                                <label class="form-label" for="mort-home-price" data-i18n="mort_home_price">Home Purchase Price ($)</label>
+                                <span class="form-value-badge" id="val-mort-home-price">250000</span>
+                            </div>
+                            <input type="range" id="mort-home-price" min="50000" max="1500000" step="10000" value="250000">
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="form-label-row">
+                                <label class="form-label" for="mort-down-payment" data-i18n="mort_down_payment">Down Payment Amount ($)</label>
+                                <span class="form-value-badge" id="val-mort-down-payment">50000</span>
+                            </div>
+                            <input type="range" id="mort-down-payment" min="10000" max="500000" step="5000" value="50000">
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="form-label-row">
+                                <label class="form-label" for="mort-loan-term" data-i18n="mort_loan_term">Mortgage Term (Years)</label>
+                                <span class="form-value-badge" id="val-mort-loan-term">30 Years</span>
+                            </div>
+                            <input type="range" id="mort-loan-term" min="5" max="30" step="5" value="30">
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="form-label-row">
+                                <label class="form-label" for="mort-interest" data-i18n="mort_interest">Mortgage Annual Interest Rate (%)</label>
+                                <span class="form-value-badge" id="val-mort-interest">6%</span>
+                            </div>
+                            <input type="range" id="mort-interest" min="1" max="15" step="0.1" value="6">
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="form-label-row">
+                                <label class="form-label" for="mort-rent" data-i18n="mort_rent">Monthly Rent Amount ($)</label>
+                                <span class="form-value-badge" id="val-mort-rent">1000</span>
+                            </div>
+                            <input type="range" id="mort-rent" min="200" max="8000" step="50" value="1000">
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="form-label-row">
+                                <label class="form-label" for="mort-rent-increase" data-i18n="mort_rent-increase">Annual Rent Increase Rate (%)</label>
+                                <span class="form-value-badge" id="val-mort-rent-increase">5%</span>
+                            </div>
+                            <input type="range" id="mort-rent-increase" min="0" max="25" value="5">
+                        </div>
+                    </div>
+                    
+                    <!-- Outputs Panel -->
+                    <div class="output-panel">
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <span class="metric-label" data-i18n="mort_metric_winner">Most Profitable Option (At Term End)</span>
+                                <span class="metric-value highlight-green" id="mort-winner">Buying a Home</span>
+                                <span class="metric-subtitle" id="mort-savings-diff">-- savings</span>
+                            </div>
+                            <div class="metric-card">
+                                <span class="metric-label" data-i18n="mort_metric_payment">Monthly Mortgage Payment</span>
+                                <span class="metric-value" id="mort-monthly-payment">$1,199</span>
+                                <span class="metric-subtitle" data-i18n="mort_sub_payment">Principal and Interest Only</span>
+                            </div>
+                            <div class="metric-card">
+                                <span class="metric-label" data-i18n="mort_metric_interest">Total Interest Paid</span>
+                                <span class="metric-value highlight-blue" id="mort-total-interest">--</span>
+                                <span class="metric-subtitle" data-i18n="mort_sub_interest">Total cost at term end</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Visual Charts -->
+                        <div class="card">
+                            <div class="chart-container">
+                                <canvas id="mortgageChart"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Affiliate Promo Card -->
+                        <div id="promo-card-mortgage"></div>
+
+                        <!-- Newsletter Report Card -->
+                        <div id="newsletter-box-mortgage"></div>
+
+                        <!-- Embed Widget Option -->
+                        <div id="embed-box-mortgage"></div>
+
+                        <!-- Amortization Schedule -->
+                        <div class="card">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem;">
+                                <h2 data-i18n="mort_table_title" style="font-size: 1.2rem; font-weight: 600;">Annual Amortization & Mortgage Payment Schedule</h2>
+                                <button class="btn-share" id="btn-mortgage-csv" style="padding: 0.5rem 1.0rem; font-size: 0.8rem; background: var(--bg-tertiary); border: 1px solid var(--border-color); color: var(--text-primary);">
+                                    📥 <span data-i18n="mort_btn_download">Download Schedule (CSV)</span>
+                                </button>
+                            </div>
+                            <div class="table-responsive" style="max-height: 280px; overflow-y: auto;">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th data-i18n="mort_th_year">Year</th>
+                                            <th data-i18n="mort_th_start">Starting Balance</th>
+                                            <th data-i18n="mort_th_principal">Principal Paid</th>
+                                            <th data-i18n="mort_th_interest">Interest Paid</th>
+                                            <th data-i18n="mort_th_end">Ending Balance</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="mortgage-amortization-tbody">
+                                        <!-- Javascript will populate this -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <!-- Native Content Ad -->
+                        <div class="adsense-placeholder adsense-content-native">
+                            <!-- AdSense In-Article unit -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- TAB 3: Freelance Rate Calculator -->
+            <section id="freelance-tab" class="tab-content">
+                <div class="calculator-grid">
+                    <!-- Inputs Panel -->
+                    <div class="card input-panel">
+                        <h2 data-i18n="label_values" style="font-size: 1.25rem; font-weight:600; margin-bottom:-0.5rem;">Calculator Inputs</h2>
+                        
+                        <div class="form-group">
+                            <div class="form-label-row">
+                                <label class="form-label" for="free-target-income" data-i18n="free_target_income">Target Annual Net Income ($)</label>
+                                <span class="form-value-badge" id="val-free-target-income">60000</span>
+                            </div>
+                            <input type="range" id="free-target-income" min="10000" max="300000" step="5000" value="60000">
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="form-label-row">
+                                <label class="form-label" for="free-expenses" data-i18n="free_expenses">Monthly Business Expenses ($)</label>
+                                <span class="form-value-badge" id="val-free-expenses">500</span>
+                            </div>
+                            <input type="range" id="free-expenses" min="0" max="10000" step="100" value="500">
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="form-label-row">
+                                <label class="form-label" for="free-tax" data-i18n="free_tax">Income Tax Rate (%)</label>
+                                <span class="form-value-badge" id="val-free-tax">20%</span>
+                            </div>
+                            <input type="range" id="free-tax" min="0" max="50" value="20">
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="form-label-row">
+                                <label class="form-label" for="free-weekly-hours" data-i18n="free_weekly_hours">Weekly Billable Work (Hours)</label>
+                                <span class="form-value-badge" id="val-free-weekly-hours">25 Hours</span>
+                            </div>
+                            <input type="range" id="free-weekly-hours" min="5" max="60" value="25">
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="form-label-row">
+                                <label class="form-label" for="free-vacation" data-i18n="free_vacation">Annual Unpaid Leave (Weeks)</label>
+                                <span class="form-value-badge" id="val-free-vacation">4 Weeks</span>
+                            </div>
+                            <input type="range" id="free-vacation" min="0" max="12" value="4">
+                        </div>
+                    </div>
+                    
+                    <!-- Outputs Panel -->
+                    <div class="output-panel">
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <span class="metric-label" data-i18n="free_metric_rate">Required Hourly Rate</span>
+                                <span class="metric-value highlight-green" id="free-hourly-rate">--</span>
+                                <span class="metric-subtitle" id="free-annual-gross">Annual gross income required</span>
+                            </div>
+                            <div class="metric-card">
+                                <span class="metric-label" data-i18n="free_metric_tax">Total Annual Tax</span>
+                                <span class="metric-value" id="free-annual-tax">--</span>
+                                <span class="metric-subtitle" data-i18n="free_sub_tax">Tax deductions</span>
+                            </div>
+                            <div class="metric-card">
+                                <span class="metric-label" data-i18n="free_metric_hours">Billable Hours (Annual)</span>
+                                <span class="metric-value highlight-blue" id="free-annual-hours">--</span>
+                                <span class="metric-subtitle" data-i18n="free_sub_hours">Total hours excluding vacations</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Visual Table Breakdown -->
+                        <div class="card">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.5rem;">
+                                <h2 data-i18n="free_table_title" style="font-size: 1.2rem; font-weight: 600; margin-bottom: 0;">Financial Income & Expense Breakdown</h2>
+                                <button class="btn-share" id="btn-freelance-csv" style="padding: 0.5rem 1.0rem; font-size: 0.8rem; background: var(--bg-tertiary); border: 1px solid var(--border-color); color: var(--text-primary);">
+                                    📥 <span data-i18n="free_btn_download">Download Report (CSV)</span>
+                                </button>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th data-i18n="free_th_item">Item</th>
+                                            <th data-i18n="free_th_monthly">Monthly</th>
+                                            <th data-i18n="free_th_yearly">Yearly</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td data-i18n="free_row_net">Target Net Income</td>
+                                            <td id="table-net-monthly">--</td>
+                                            <td id="table-net-yearly">--</td>
+                                        </tr>
+                                        <tr>
+                                            <td data-i18n="free_row_exp">Business Expenses</td>
+                                            <td id="table-exp-monthly">--</td>
+                                            <td id="table-exp-yearly">--</td>
+                                        </tr>
+                                        <tr>
+                                            <td data-i18n="free_row_tax">Calculated Income Tax</td>
+                                            <td id="table-tax-monthly">--</td>
+                                            <td id="table-tax-yearly">--</td>
+                                        </tr>
+                                        <tr style="font-weight: 600; border-top: 2px solid var(--border-color);">
+                                            <td data-i18n="free_row_gross">Required Gross Income</td>
+                                            <td id="table-gross-monthly" style="color: var(--accent-primary);">--</td>
+                                            <td id="table-gross-yearly" style="color: var(--accent-primary);">--</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Affiliate Promo Card -->
+                        <div id="promo-card-freelance"></div>
+
+                        <!-- Newsletter Report Card -->
+                        <div id="newsletter-box-freelance"></div>
+
+                        <!-- Embed Widget Option -->
+                        <div id="embed-box-freelance"></div>
+                        
+                        <!-- Native Content Ad -->
+                        <div class="adsense-placeholder adsense-content-native">
+                            <!-- AdSense In-Article unit -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- TAB 4: Inflation Calculator -->
+            <section id="inflation-tab" class="tab-content">
+                <div class="calculator-grid">
+                    <!-- Inputs Panel -->
+                    <div class="card input-panel">
+                        <h2 data-i18n="label_values" style="font-size: 1.25rem; font-weight:600; margin-bottom:-0.5rem;">Calculator Inputs</h2>
+                        
+                        <div class="form-group">
+                            <div class="form-label-row">
+                                <label class="form-label" for="inf-starting-amount" data-i18n="inf_starting_amount">Starting Cash Amount ($)</label>
+                                <span class="form-value-badge" id="val-inf-starting-amount">10000</span>
+                            </div>
+                            <input type="range" id="inf-starting-amount" min="1000" max="250000" step="1000" value="10000">
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="form-label-row">
+                                <label class="form-label" for="inf-inflation-rate" data-i18n="inf_inflation_rate">Expected Annual Inflation (%)</label>
+                                <span class="form-value-badge" id="val-inf-inflation-rate">5%</span>
+                            </div>
+                            <input type="range" id="inf-inflation-rate" min="1" max="40" value="5">
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="form-label-row">
+                                <label class="form-label" for="inf-years" data-i18n="inf_years">Simulation Duration (Years)</label>
+                                <span class="form-value-badge" id="val-inf-years">10 Years</span>
+                            </div>
+                            <input type="range" id="inf-years" min="2" max="30" value="10">
+                        </div>
+                    </div>
+                    
+                    <!-- Outputs Panel -->
+                    <div class="output-panel">
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <span class="metric-label" data-i18n="inf_metric_power">Future Purchasing Power</span>
+                                <span class="metric-value highlight-green" id="inf-future-power">--</span>
+                                <span class="metric-subtitle" id="inf-power-lost-pct">-- lost</span>
+                            </div>
+                            <div class="metric-card">
+                                <span class="metric-label" data-i18n="inf_metric_lost">Total Purchasing Power Lost</span>
+                                <span class="metric-value" id="inf-power-lost-val">--</span>
+                                <span class="metric-subtitle" data-i18n="inf_sub_lost_val">Erosion amount</span>
+                            </div>
+                            <div class="metric-card">
+                                <span class="metric-label" data-i18n="inf_metric_target">Amount Needed to Keep Power</span>
+                                <span class="metric-value highlight-blue" id="inf-target-amount">--</span>
+                                <span class="metric-subtitle" data-i18n="inf_sub_target">Nominal value at term end</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Visual Charts -->
+                        <div class="card">
+                            <div class="chart-container">
+                                <canvas id="inflationChart"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Affiliate Promo Card -->
+                        <div id="promo-card-inflation"></div>
+
+                        <!-- Newsletter Report Card -->
+                        <div id="newsletter-box-inflation"></div>
+
+                        <!-- Embed Widget Option -->
+                        <div id="embed-box-inflation"></div>
+                        
+                        <!-- Native Content Ad -->
+                        <div class="adsense-placeholder adsense-content-native">
+                            <!-- AdSense In-Article unit -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 5: Admin settings dashboard -->
+            <section id="admin-tab" class="tab-content">
+                <div class="calculator-grid" style="grid-template-columns: 1fr;">
+                    <!-- Admin Panel Card -->
+                    <div class="card">
+                        <div style="border-bottom: 1px solid var(--border-color); padding-bottom: 1.5rem; margin-bottom: 2rem;">
+                            <h2 data-i18n="tab_admin_title" style="font-size: 1.5rem; font-weight:700; color: var(--text-primary);">Admin Settings Dashboard</h2>
+                            <p data-i18n="tab_admin_subtitle" style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.5rem; line-height: 1.5;">Manage Google AdSense client IDs, slot parameters, Google Analytics tracking codes, newsletter forms, and affiliate redirect links without a database.</p>
+                        </div>
+
+                        <form id="admin-config-form" class="admin-form">
+                            <!-- Group 1: Google AdSense & Analytics -->
+                            <div class="admin-section">
+                                <h3 data-i18n="admin_header_adsense" class="admin-sec-title">⚙️ Google AdSense & Analytics</h3>
+                                <div class="admin-fields-grid">
+                                    <div class="form-group">
+                                        <label class="form-label" for="admin-adsense-client" data-i18n="admin_label_adsense_client">AdSense Client ID (ca-pub-xxx)</label>
+                                        <input type="text" id="admin-adsense-client" class="admin-input" placeholder="ca-pub-XXXXXXXXXXXXXXXX">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="admin-analytics-id" data-i18n="admin_label_analytics">Google Analytics Measurement ID (G-xxx)</label>
+                                        <input type="text" id="admin-analytics-id" class="admin-input" placeholder="G-XXXXXXXXXX">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="admin-adsense-header" data-i18n="admin_label_adsense_header">Header Ad Unit Slot ID</label>
+                                        <input type="text" id="admin-adsense-header" class="admin-input" placeholder="9876543210">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="admin-adsense-sidebar" data-i18n="admin_label_adsense_sidebar">Sidebar Ad Unit Slot ID</label>
+                                        <input type="text" id="admin-adsense-sidebar" class="admin-input" placeholder="9876543211">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="admin-adsense-native" data-i18n="admin_label_adsense_native">Native Ad Unit Slot ID</label>
+                                        <input type="text" id="admin-adsense-native" class="admin-input" placeholder="9876543212">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="admin-adsense-sticky" data-i18n="admin_label_adsense_sticky">Sticky Footer Ad Unit Slot ID</label>
+                                        <input type="text" id="admin-adsense-sticky" class="admin-input" placeholder="9876543213">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr class="admin-divider">
+
+                            <!-- Group 2: Lead Gen & Newsletter -->
+                            <div class="admin-section">
+                                <h3 data-i18n="admin_header_newsletter" class="admin-sec-title">📩 Lead Generation & Newsletters</h3>
+                                <div class="form-group">
+                                    <label class="form-label" for="admin-newsletter-endpoint" data-i18n="admin_label_newsletter_endpoint">Newsletter Integration URL (Substack, custom API etc.)</label>
+                                    <input type="url" id="admin-newsletter-endpoint" class="admin-input" placeholder="https://yourbrand.substack.com">
+                                </div>
+                            </div>
+
+                            <hr class="admin-divider">
+
+                            <!-- Group 3: Affiliate Links -->
+                            <div class="admin-section">
+                                <h3 data-i18n="admin_header_affiliate" class="admin-sec-title">🔗 Affiliate Partner Redirect Links</h3>
+                                <div class="admin-fields-grid">
+                                    <div class="form-group">
+                                        <label class="form-label" for="admin-affiliate-fire" data-i18n="admin_label_affiliate_fire">FIRE Calculator Broker Link</label>
+                                        <input type="url" id="admin-affiliate-fire" class="admin-input" placeholder="https://www.interactivebrokers.com">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="admin-affiliate-mortgage" data-i18n="admin_label_affiliate_mortgage">Mortgage Live Rates Comparison Link</label>
+                                        <input type="url" id="admin-affiliate-mortgage" class="admin-input" placeholder="https://www.lendingtree.com">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="admin-affiliate-freelance" data-i18n="admin_label_affiliate_freelance">Freelance Payment Platform Link (Wise)</label>
+                                        <input type="url" id="admin-affiliate-freelance" class="admin-input" placeholder="https://wise.com">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="admin-affiliate-inflation" data-i18n="admin_label_affiliate_inflation">Inflation High-Yield Savings Account Link</label>
+                                        <input type="url" id="admin-affiliate-inflation" class="admin-input" placeholder="https://www.nerdwallet.com/best/banking/high-yield-savings-accounts">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Buttons -->
+                            <div style="display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap;">
+                                <button type="submit" id="btn-admin-save" class="btn" style="background: var(--gradient-primary); color: #fff; display: flex; align-items: center; gap: 0.5rem; border: none; padding: 0.75rem 1.5rem; font-weight: 600; cursor: pointer; border-radius: 12px; transition: var(--transition-smooth);">
+                                    <span data-i18n="admin_btn_save">Save Config Locally (Test)</span>
+                                </button>
+                                <button type="button" id="btn-admin-download" class="btn" style="background: rgba(255,255,255,0.08); border: 1px solid var(--border-color); color: var(--text-primary); display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.5rem; font-weight: 600; cursor: pointer; border-radius: 12px; transition: var(--transition-smooth);">
+                                    <span data-i18n="admin_btn_download">Download config.js (Production)</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Dynamic FAQ Section -->
+            <section id="faq-section" class="card" style="margin-top: 2rem;">
+                <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem; color: var(--text-primary);">
+                    💡 <span data-i18n="faq_title">Frequently Asked Questions</span>
+                </h2>
+                <div id="faq-content" class="faq-container"></div>
+            </section>
+            
+        </main>
+        
+    </div>
+
+    <!-- AdSense Sticky Footer Ad -->
+    <div class="adsense-sticky-footer">
+        <div class="adsense-placeholder" style="width: 728px; height: 50px; border:none; background:transparent;">
+            <!-- AdSense Anchor Ad Unit -->
+        </div>
+    </div>
+
+    <!-- Info Modal (About / Privacy Policy) -->
+    <div id="info-modal" class="modal-backdrop" style="display:none;">
+        <div class="modal-content card">
+            <div class="modal-header">
+                <h2 id="modal-title">Title</h2>
+                <button id="modal-close" class="modal-close-btn">&times;</button>
+            </div>
+            <div id="modal-body" class="modal-body-content">
+                <!-- Dynamic Content -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Core App Logic & Routing -->
+    <script src="app.js" type="module"></script>
+</body>
+</html>
