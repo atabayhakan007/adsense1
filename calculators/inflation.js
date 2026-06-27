@@ -1,5 +1,5 @@
 // Inflation Erosion Calculator Module
-import { t, currentLang } from '../i18n.js';
+import { t, currentLang, formatCurrency } from '../i18n.js';
 
 let startingAmountSlider, inflationRateSlider, yearsSlider;
 let valStartingAmount, valInflationRate, valYears;
@@ -56,12 +56,7 @@ export function setInflationState(state) {
     updateLabels();
 }
 
-function formatCurrency(val) {
-    if (currentLang === 'tr') {
-        return Math.round(val).toLocaleString('tr-TR') + ' ₺';
-    }
-    return '$' + Math.round(val).toLocaleString('en-US');
-}
+
 
 export function updateInflation() {
     const startingAmount = parseFloat(startingAmountSlider.value);

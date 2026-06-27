@@ -1,5 +1,5 @@
 // FIRE Calculator Module
-import { t, currentLang } from '../i18n.js';
+import { t, currentLang, formatCurrency } from '../i18n.js';
 
 let currentAgeSlider, netWorthSlider, monthlySavingsSlider, monthlyExpensesSlider, roiSlider, inflationSlider;
 let valCurrentAge, valNetWorth, valMonthlySavings, valMonthlyExpenses, valRoi, valInflation;
@@ -79,13 +79,6 @@ export function setFireState(state) {
     updateLabels();
 }
 
-// Format currency based on locale
-function formatCurrency(val) {
-    if (currentLang === 'tr') {
-        return Math.round(val).toLocaleString('tr-TR') + ' ₺';
-    }
-    return '$' + Math.round(val).toLocaleString('en-US');
-}
 
 // Calculation and chart rendering logic
 export function updateFire() {

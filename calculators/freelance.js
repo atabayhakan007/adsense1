@@ -1,5 +1,5 @@
 // Freelance Hourly Rate Calculator Module
-import { t, currentLang } from '../i18n.js';
+import { t, currentLang, formatCurrency } from '../i18n.js';
 
 let targetIncomeSlider, expensesSlider, taxSlider, weeklyHoursSlider, vacationSlider;
 let valTargetIncome, valExpenses, valTax, valWeeklyHours, valVacation;
@@ -120,12 +120,7 @@ export function setFreelanceState(state) {
     updateLabels();
 }
 
-function formatCurrency(val) {
-    if (currentLang === 'tr') {
-        return Math.round(val).toLocaleString('tr-TR') + ' ₺';
-    }
-    return '$' + Math.round(val).toLocaleString('en-US');
-}
+
 
 export function updateFreelance() {
     const netIncomeTarget = parseFloat(targetIncomeSlider.value);

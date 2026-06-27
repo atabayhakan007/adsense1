@@ -8,6 +8,7 @@ export const translations = {
         nav_freelance: "💼 Freelance Saat Ücreti",
         nav_inflation: "💸 Enflasyon Erimesi",
         btn_share: "Planı Paylaş",
+        btn_print: "Raporu Yazdır / PDF",
         toast_copied: "✨ Link kopyalandı! Planınızı paylaşmaya hazırsınız.",
         copyright: "&copy; 2026 FinCalc Pro. Tüm Hakları Saklıdır.",
         link_about: "Hakkımızda",
@@ -228,6 +229,7 @@ export const translations = {
         nav_freelance: "💼 Freelance Hourly Rate",
         nav_inflation: "💸 Inflation Erosion",
         btn_share: "Share Plan",
+        btn_print: "Print / Save PDF",
         toast_copied: "✨ Link copied! Ready to share your plan.",
         copyright: "&copy; 2026 FinCalc Pro. All rights reserved.",
         link_about: "About Us",
@@ -448,6 +450,26 @@ export const translations = {
 
 // Global localization state
 export let currentLang = 'en';
+
+// Global currency configuration
+export let currentCurrency = localStorage.getItem('fincalc_currency') || 'USD';
+
+export function setCurrency(currency) {
+    currentCurrency = currency;
+    localStorage.setItem('fincalc_currency', currency);
+}
+
+export function formatCurrency(val, currency = currentCurrency) {
+    const symbolMap = {
+        'USD': { sym: '$', pos: 'before', locale: 'en-US' },
+        'EUR': { sym: '€', pos: 'before', locale: 'de-DE' },
+        'TRY': { sym: '₺', pos: 'after', locale: 'tr-TR' },
+        'GBP': { sym: '£', pos: 'before', locale: 'en-GB' }
+    };
+    const cfg = symbolMap[currency] || symbolMap['USD'];
+    const formatted = Math.round(val).toLocaleString(cfg.locale);
+    return cfg.pos === 'before' ? cfg.sym + formatted : formatted + ' ' + cfg.sym;
+}
 
 // Detect user's country/language based on browser locale
 export function detectLanguage() {

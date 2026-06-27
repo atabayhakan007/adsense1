@@ -2,7 +2,7 @@ import { initFire, updateFire, getFireState, setFireState } from './calculators/
 import { initMortgage, updateMortgage, getMortgageState, setMortgageState } from './calculators/mortgage.js';
 import { initFreelance, updateFreelance, getFreelanceState, setFreelanceState } from './calculators/freelance.js';
 import { initInflation, updateInflation, getInflationState, setInflationState } from './calculators/inflation.js';
-import { detectLanguage, t, localizeDOM } from './i18n.js';
+import { detectLanguage, t, localizeDOM, currentCurrency, setCurrency } from './i18n.js';
 import { config as defaultConfig } from './config.js';
 
 // Merge configuration with local storage override
@@ -74,6 +74,12 @@ function initApp() {
 
     // 6. Initialize Admin Panel Settings Form
     initAdminPanel();
+
+    // 7. Initialize Currency Selector & Print Buttons
+    initCurrencyAndPrint();
+
+    // 8. Initialize Scenario Presets
+    initPresets();
 }
 
 // Switch between tabs
@@ -642,6 +648,81 @@ export const config = {
             a.click();
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
+        });
+    }
+}
+
+// Preset configurations for all 4 calculators
+const presets = {
+    fire: {
+        standard: { 'fire-current-age': 30, 'fire-net-worth': 10000, 'fire-monthly-savings': 500, 'fire-monthly-expenses': 1500, 'fire-roi': 10, 'fire-inflation': 3 },
+        lean: { 'fire-current-age': 30, 'fire-net-worth': 50000, 'fire-monthly-savings': 1500, 'fire-monthly-expenses': 1200, 'fire-roi': 9, 'fire-inflation': 3 },
+        fat: { 'fire-current-age': 30, 'fire-net-worth': 100000, 'fire-monthly-savings': 3500, 'fire-monthly-expenses': 4000, 'fire-roi': 11, 'fire-inflation': 3 }
+    },
+    mortgage: {
+        balanced: { 'mort-home-price': 250000, 'mort-down-payment': 50000, 'mort-loan-term': 30, 'mort-interest': 6.5, 'mort-rent': 1500, 'mort-rent-increase': 4 },
+        'low-interest': { 'mort-home-price': 300000, 'mort-down-payment': 60000, 'mort-loan-term': 30, 'mort-interest': 3.5, 'mort-rent': 1800, 'mort-rent-increase': 5 },
+        'high-interest': { 'mort-home-price': 200000, 'mort-down-payment': 40000, 'mort-loan-term': 15, 'mort-interest': 8.5, 'mort-rent': 1200, 'mort-rent-increase': 3 }
+    },
+    freelance: {
+        mid: { 'free-target-income': 60000, 'free-expenses': 800, 'free-tax': 20, 'free-weekly-hours': 30, 'free-vacation': 4 },
+        junior: { 'free-target-income': 35000, 'free-expenses': 300, 'free-tax': 15, 'free-weekly-hours': 35, 'free-vacation': 2 },
+        senior: { 'free-target-income': 120000, 'free-expenses': 1800, 'free-tax': 30, 'free-weekly-hours': 25, 'free-vacation': 6 }
+    },
+    inflation: {
+        mild: { 'inf-starting-amount': 10000, 'inf-inflation-rate': 2, 'inf-years': 10 },
+        high: { 'inf-starting-amount': 10000, 'inf-inflation-rate': 10, 'inf-years': 10 },
+        hyper: { 'inf-starting-amount': 10000, 'inf-inflation-rate': 25, 'inf-years': 10 }
+    }
+};
+
+// Bind preset button click events to update inputs dynamically
+function initPresets() {
+    document.querySelectorAll('.btn-preset').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const calcType = btn.getAttribute('data-calc');
+            const presetName = btn.getAttribute('data-preset');
+            
+            if (presets[calcType] && presets[calcType][presetName]) {
+                btn.parentElement.querySelectorAll('.btn-preset').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const values = presets[calcType][presetName];
+                for (const [inputId, val] of Object.entries(values)) {
+                    const input = document.getElementById(inputId);
+                    if (input) {
+                        input.value = val;
+                        // Dispatch input event to notify calculator modules to update layout badges
+                        input.dispatchEvent(new Event('input'));
+                    }
+                }
+                
+                updateAllCalculators();
+                syncStateToURL();
+            }
+        });
+    });
+}
+
+// Bind currency select change handler and print report window prints
+function initCurrencyAndPrint() {
+    const currencySelect = document.getElementById('currency-select');
+    if (currencySelect) {
+        currencySelect.value = currentCurrency;
+        currencySelect.addEventListener('change', (e) => {
+            setCurrency(e.target.value);
+            // Trigger input change events on all sliders to refresh localized currency labels
+            document.querySelectorAll('.input-panel input[type="range"]').forEach(input => {
+                input.dispatchEvent(new Event('input'));
+            });
+            updateAllCalculators();
+        });
+    }
+
+    const printBtn = document.getElementById('btn-print-report');
+    if (printBtn) {
+        printBtn.addEventListener('click', () => {
+            window.print();
         });
     }
 }

@@ -965,3 +965,182 @@ body.embedded #nav-admin {
   display: none !important;
 }
 
+/* Global Currency Selector Dropdown */
+.currency-selector-wrapper {
+  position: relative;
+}
+
+.currency-select {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  padding: 0.6rem 2.2rem 0.6rem 1rem;
+  border-radius: 12px;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 600;
+  outline: none;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%239CA3AF' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1rem;
+}
+
+.currency-select:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: var(--border-hover);
+}
+
+.currency-select:focus {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px var(--accent-primary-glow);
+}
+
+/* Preset Buttons */
+.btn-preset {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  font-family: var(--font-sans);
+  outline: none;
+}
+
+.btn-preset:hover, .btn-preset.active {
+  background: var(--accent-primary-glow);
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+}
+
+/* Print Stylesheet */
+@media print {
+  body {
+    background-color: #ffffff !important;
+    background-image: none !important;
+    color: #000000 !important;
+    font-size: 12pt;
+  }
+  
+  .sidebar, 
+  .header-actions,
+  .adsense-placeholder,
+  .adsense-sticky-footer,
+  .promo-card,
+  .embed-box,
+  .newsletter-box,
+  #faq-section,
+  .preset-group,
+  .mort-table-title,
+  #btn-mortgage-csv,
+  #btn-freelance-csv {
+    display: none !important;
+  }
+  
+  .app-container {
+    display: block !important;
+    width: 100% !important;
+  }
+  
+  .main-content {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  
+  .header {
+    border-bottom: 2px solid #000000 !important;
+    padding-bottom: 1rem !important;
+    margin-bottom: 2rem !important;
+  }
+  
+  .header-title h1 {
+    color: #000000 !important;
+    font-size: 24pt !important;
+  }
+  
+  .header-title p {
+    color: #4B5563 !important;
+    font-size: 11pt !important;
+  }
+  
+  .calculator-grid {
+    display: block !important; /* Stack vertically for print */
+    width: 100% !important;
+  }
+  
+  .card {
+    background: none !important;
+    border: 1px solid #D1D5DB !important;
+    border-radius: 8px !important;
+    box-shadow: none !important;
+    color: #000000 !important;
+    padding: 1.5rem !important;
+    margin-bottom: 2rem !important;
+    page-break-inside: avoid;
+  }
+  
+  .input-panel {
+    position: static !important;
+    page-break-inside: avoid;
+  }
+  
+  input[type="range"] {
+    display: none !important; /* Hide range sliders on print */
+  }
+  
+  .form-group {
+    border-bottom: 1px dashed #E5E7EB !important;
+    padding: 0.5rem 0 !important;
+  }
+  
+  .form-label {
+    color: #000000 !important;
+    font-size: 10pt !important;
+  }
+  
+  .form-value-badge {
+    background: none !important;
+    border: none !important;
+    color: #000000 !important;
+    font-size: 11pt !important;
+    font-weight: 700 !important;
+  }
+  
+  .metrics-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1rem !important;
+  }
+  
+  .metric-card {
+    border: 1px solid #D1D5DB !important;
+    padding: 1rem !important;
+    background: none !important;
+    box-shadow: none !important;
+  }
+  
+  .metric-label {
+    color: #4B5563 !important;
+  }
+  
+  .metric-value {
+    color: #000000 !important;
+    font-size: 18pt !important;
+  }
+  
+  .chart-container {
+    border: 1px solid #D1D5DB !important;
+    padding: 1rem !important;
+    margin-top: 1rem !important;
+    page-break-inside: avoid;
+  }
+}
+
+

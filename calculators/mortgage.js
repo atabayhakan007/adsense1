@@ -1,5 +1,5 @@
 // Mortgage vs Rent Calculator Module
-import { t, currentLang } from '../i18n.js';
+import { t, currentLang, formatCurrency } from '../i18n.js';
 
 let homePriceSlider, downPaymentSlider, loanTermSlider, interestSlider, rentSlider, rentIncreaseSlider;
 let valHomePrice, valDownPayment, valLoanTerm, valInterest, valRent, valRentIncrease;
@@ -108,12 +108,6 @@ export function setMortgageState(state) {
     updateLabels();
 }
 
-function formatCurrency(val) {
-    if (currentLang === 'tr') {
-        return Math.round(val).toLocaleString('tr-TR') + ' ₺';
-    }
-    return '$' + Math.round(val).toLocaleString('en-US');
-}
 
 export function updateMortgage() {
     const homePrice = parseFloat(homePriceSlider.value);
