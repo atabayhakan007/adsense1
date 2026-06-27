@@ -207,6 +207,9 @@ body {
   .calculator-grid {
     grid-template-columns: 1fr;
   }
+  .input-panel {
+    position: static !important;
+  }
 }
 
 /* Glassmorphism Cards */
