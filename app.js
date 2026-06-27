@@ -80,6 +80,12 @@ function initApp() {
 
     // 8. Initialize Scenario Presets
     initPresets();
+
+    // 9. Initialize Admin Panel Session Security
+    initAdminSessionSecurity();
+
+    // 10. Initialize GDPR Cookie Consent Banner
+    initCookieBanner();
 }
 
 // Switch between tabs
@@ -727,6 +733,82 @@ function initCurrencyAndPrint() {
     }
 }
 
+// Check URL query parameters and sessionStorage to handle Admin Dashboard link visibility
+function initAdminSessionSecurity() {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('manage') === 'true') {
+        sessionStorage.setItem('fincalc_admin_session', 'true');
+    }
+    const isAdminSession = sessionStorage.getItem('fincalc_admin_session') === 'true';
+    const navAdmin = document.getElementById('nav-admin');
+    if (navAdmin) {
+        if (isAdminSession) {
+            navAdmin.style.display = 'flex';
+        } else {
+            navAdmin.style.display = 'none';
+        }
+    }
+}
+
+// Initialize cookie banner UI and local storage key persistence
+function initCookieBanner() {
+    const cookieBanner = document.getElementById('cookie-banner');
+    const acceptBtn = document.getElementById('btn-cookie-accept');
+    const privacyLink = document.getElementById('link-cookie-privacy');
+
+    if (!cookieBanner) return;
+
+    const consentGiven = localStorage.getItem('fincalc_cookie_consent') === 'true';
+    if (!consentGiven) {
+        cookieBanner.style.display = 'block';
+    }
+
+    if (acceptBtn) {
+        acceptBtn.addEventListener('click', () => {
+            localStorage.setItem('fincalc_cookie_consent', 'true');
+            cookieBanner.style.animation = 'slideUpCookie 0.4s reverse';
+            setTimeout(() => {
+                cookieBanner.style.display = 'none';
+            }, 400);
+        });
+    }
+
+    if (privacyLink) {
+        privacyLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            showPrivacyModal();
+        });
+    }
+}
+
+// Inject JSON-LD Schema markup for Google and search engines
+function injectSEOSchema() {
+    const schema = {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "FinCalc Pro",
+        "operatingSystem": "All",
+        "applicationCategory": "FinanceApplication",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "description": "Smart Financial & FIRE Calculation Tools. Calculate FIRE retirement, Buy vs Rent Mortgage, Freelance rates and Inflation erosion.",
+        "featureList": [
+            "FIRE Retirement Calculator",
+            "Buy vs. Rent Mortgage Simulator",
+            "Freelance Hourly Rate Planner",
+            "Inflation Erosion Calculator"
+        ]
+    };
+    
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify(schema);
+    document.head.appendChild(script);
+}
+
 // Initialize the Application wrapper to include modals and i18n
 function initAppWrapper() {
     // Dynamic tracking and ads scripts injection
@@ -741,6 +823,7 @@ function initAppWrapper() {
     initBusinessWidgets();
     
     // Start main app
+    injectSEOSchema();
     initApp();
     initModalListeners();
     

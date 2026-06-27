@@ -1143,4 +1143,114 @@ body.embedded #nav-admin {
   }
 }
 
+/* Hide admin link by default for public users */
+#nav-admin {
+  display: none;
+}
+
+/* GDPR Cookie Consent Banner */
+.cookie-banner {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  right: 24px;
+  background: rgba(15, 20, 32, 0.85);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 1.25rem 1.75rem;
+  box-shadow: var(--shadow-lg);
+  z-index: 2000;
+  animation: slideUpCookie 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cookie-banner-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.cookie-banner-text-group {
+  flex-grow: 1;
+}
+
+.cookie-banner-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.cookie-banner-desc {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.cookie-banner-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-shrink: 0;
+}
+
+.cookie-banner-link {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: var(--transition-smooth);
+  border-bottom: 1px dashed var(--text-muted);
+}
+
+.cookie-banner-link:hover {
+  color: var(--text-primary);
+  border-bottom-style: solid;
+}
+
+.cookie-banner-btn {
+  background: var(--accent-primary);
+  color: white;
+  border: none;
+  padding: 0.6rem 1.25rem;
+  border-radius: 10px;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  box-shadow: 0 4px 12px var(--accent-primary-glow);
+}
+
+.cookie-banner-btn:hover {
+  transform: translateY(-1px);
+  background-color: #0ea572;
+}
+
+@keyframes slideUpCookie {
+  from { transform: translateY(100px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@media (max-width: 768px) {
+  .cookie-banner-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  .cookie-banner-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+@media print {
+  .cookie-banner {
+    display: none !important;
+  }
+}
+
 
