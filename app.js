@@ -710,13 +710,39 @@ function initPresets() {
     });
 }
 
+// Define reference values for the Market Reference Rates card
+const marketRates = {
+    USD: { inflation: '3.1%', savings: '4.5%', stocks: '10.0%' },
+    EUR: { inflation: '2.4%', savings: '3.2%', stocks: '8.0%' },
+    TRY: { inflation: '45.0%', savings: '50.0%', stocks: '35.0%' },
+    GBP: { inflation: '2.8%', savings: '4.2%', stocks: '7.5%' }
+};
+
+// Update reference rates in the sidebar card based on selected currency
+function updateMarketRatesCard(currency) {
+    const data = marketRates[currency] || marketRates.USD;
+    const inflationEl = document.getElementById('rate-val-inflation');
+    const savingsEl = document.getElementById('rate-val-savings');
+    const stocksEl = document.getElementById('rate-val-stocks');
+    
+    if (inflationEl) inflationEl.textContent = data.inflation;
+    if (savingsEl) savingsEl.textContent = data.savings;
+    if (stocksEl) stocksEl.textContent = data.stocks;
+}
+
 // Bind currency select change handler and print report window prints
 function initCurrencyAndPrint() {
     const currencySelect = document.getElementById('currency-select');
     if (currencySelect) {
         currencySelect.value = currentCurrency;
+        // Populate initial rates card values
+        updateMarketRatesCard(currentCurrency);
+
         currencySelect.addEventListener('change', (e) => {
             setCurrency(e.target.value);
+            // Update rates card values on changes
+            updateMarketRatesCard(e.target.value);
+
             // Trigger input change events on all sliders to refresh localized currency labels
             document.querySelectorAll('.input-panel input[type="range"]').forEach(input => {
                 input.dispatchEvent(new Event('input'));

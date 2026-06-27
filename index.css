@@ -1248,9 +1248,63 @@ body.embedded #nav-admin {
 }
 
 @media print {
-  .cookie-banner {
+  .cookie-banner,
+  .market-rates-card {
     display: none !important;
   }
+}
+
+/* Market Reference Rates Card */
+.market-rates-card {
+  margin: 1.5rem 0.75rem;
+  padding: 1.15rem;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-color);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05);
+  transition: var(--transition-smooth);
+}
+
+.market-rates-card:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: var(--border-hover);
+  transform: translateY(-2px);
+}
+
+.market-rates-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-top: 0;
+  margin-bottom: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  letter-spacing: -0.01em;
+}
+
+.market-rates-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.market-rates-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+}
+
+.market-rates-label {
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.market-rates-value {
+  color: var(--accent-primary);
+  font-weight: 700;
+  text-shadow: 0 0 10px var(--accent-primary-glow);
 }
 
 
