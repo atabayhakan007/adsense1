@@ -86,6 +86,9 @@ function initApp() {
 
     // 10. Initialize GDPR Cookie Consent Banner
     initCookieBanner();
+
+    // 11. Initialize Ad-Blocker Detector Banner
+    initAdBlockDetector();
 }
 
 // Switch between tabs
@@ -833,6 +836,59 @@ function injectSEOSchema() {
     script.type = 'application/ld+json';
     script.text = JSON.stringify(schema);
     document.head.appendChild(script);
+}
+
+// Test if the browser is using an ad blocker by injecting a dummy ad container
+function detectAdBlocker() {
+    return new Promise((resolve) => {
+        const testAd = document.createElement('div');
+        testAd.className = 'adsbygoogle ad-placement';
+        testAd.innerHTML = '&nbsp;';
+        testAd.style.position = 'absolute';
+        testAd.style.left = '-9999px';
+        testAd.style.top = '-9999px';
+        testAd.style.width = '1px';
+        testAd.style.height = '1px';
+        
+        document.body.appendChild(testAd);
+
+        setTimeout(() => {
+            const isBlocked = testAd.offsetHeight === 0 || 
+                              testAd.clientHeight === 0 || 
+                              window.getComputedStyle(testAd).display === 'none';
+            document.body.removeChild(testAd);
+            resolve(isBlocked);
+        }, 150);
+    });
+}
+
+// Initialize ad block detector checks
+function initAdBlockDetector() {
+    // If dismissed in this session, don't run tests
+    if (sessionStorage.getItem('fincalc_adblock_dismissed') === 'true') {
+        return;
+    }
+
+    const noticeBanner = document.getElementById('adblock-notice');
+    const closeBtn = document.getElementById('btn-adblock-close');
+
+    if (!noticeBanner) return;
+
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            sessionStorage.setItem('fincalc_adblock_dismissed', 'true');
+            noticeBanner.style.display = 'none';
+        });
+    }
+
+    // Run detection after a brief delay
+    setTimeout(() => {
+        detectAdBlocker().then((isBlocked) => {
+            if (isBlocked) {
+                noticeBanner.style.display = 'block';
+            }
+        });
+    }, 1500);
 }
 
 // Initialize the Application wrapper to include modals and i18n
